@@ -1,0 +1,17 @@
+<div class="col-md-4 offset-4 card card-body">
+<div class="drop-container" ngFileDrop [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" [ngClass]="{ 'is-drop-over': dragOver }">
+  <h1>Upload An Image</h1>
+</div>
+<div class="form-group">
+  <label class="upload-button">
+  <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" multiple>
+  or choose file(s)
+</label>
+
+<button type="button" class="start-upload-btn" (click)="startUpload()">
+  Start Upload
+</button>
+</div>
+
+<pre>{{files | json}}</pre>
+</div>
