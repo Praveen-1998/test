@@ -1,0 +1,259 @@
+<div class="row">
+  <div class="col" style="font-family: 'Courier New', Courier, monospace;">
+    <h2>Create Candidate</h2>
+  </div>
+  <div class="col-md-12-offset-10">
+
+    <a href="#myModal" role="button" class="btn btn-primary " data-toggle="modal">Add Candidate</a>
+
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="row">
+              <div class="row" style="font-family: 'Courier New', Courier, monospace;">
+                <h2 style="padding-left:20px;">Create Candidate</h2>
+              </div>
+
+
+            </div>
+
+            <hr>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body p-4" id="result" style="padding-left: 60px;">
+
+            <div class="col-md-8 offset-md-2 mt-2 mb-5 card card-body">
+              <form action="" role="form" method="POST" #form="ngForm" (ngSubmit)="printForm(form)">
+                <div class="example-container">
+                  <h3 class="text-center text-white bg-dark">Candidate details</h3>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" name="name" placeholder="Client Name" #name="ngModel"
+                        ngModel required>
+                      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                          Name is required.
+                        </div>
+                        <div *ngIf="name.errors.minlength">
+                          Name must be at least 4 characters long.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" name="email" placeholder="Enter your mail ID"
+                        #email="ngModel" ngModel required>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="number" name="mobile" #mobile='ngModel' class="form-control"
+                        placeholder="Enter your mobile number" ngModel required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="number" name="exp" #exp='ngModel' class="form-control"
+                        placeholder="Enter your experience" ngModel required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="number" name="salary" #salary='ngModel' class="form-control"
+                        placeholder="Enter your expected salary" ngModel required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="text" name="location" #location='ngModel' class="form-control"
+                        placeholder="Enter your location" ngModel required>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input type="number" name="position" #position='ngModel' class="form-control"
+                        placeholder="Enter the positions opened" ngModel required>
+                    </div>
+
+                    <div class="form-group">
+
+                      <button type="submit" class="btn btn-secondary">submit</button>
+
+                    </div>
+
+                  </div>
+
+
+                </div>farhath@gmail.com	
+              </form>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<hr>
+<div class="card card-body col-md-2 float-left" style="margin-top: 0%;">
+  <small>FILTER CANDIDATES BY</small><br>
+  <form action="">
+    <div class="form-group">
+      <label for="">Name</label>
+      <input type="text" name="name" #name class="form-control" style="border-radius: 10%;width:50%;">
+    </div>
+    <button type="submit" (click)="filterCandidateByName(name)">Apply Filter</button>
+
+  </form>
+</div>
+
+<div class="col-md-10 float-right">
+  <table class="table table-bordered table-hover mt-0" id="example">
+    <thead class="thead-dark">
+      <tr class="text-white text-center">
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Experience</th>
+        <th>Expected Salary</th>
+        <th>Location</th>
+        <th>No of positions opened</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr class="text-center" *ngFor='let company of companies; index as i' id="{{i+1}}"  (click)="postRequirement(company , i+1)">
+        <!-- <button id="myButton" class="float-left submit-button " data-toggle="modal" data-target="#Modal"
+          (click)="postRequirement(company)"> -->
+        <div class="modal" id="Modal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-full" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="row">
+                  <div class="row" style="font-family: 'Courier New', Courier, monospace;">
+                    <h2 style="padding-left:20px;">Entered Details</h2>
+                  </div>
+                </div>
+
+                <hr>
+
+              </div>
+              <div class="modal-body p-4" id="result" style="padding-left: 60px;">
+
+                <div class="col-md-8 offset-md-2 mt-2 mb-5 ">
+                  <form action="" role="form" method="POST" #form="ngForm" (ngSubmit)="printForm(form)">
+
+                    <div class="example-container">
+                      <h3 class="text-center text-white bg-dark">Candidate details</h3>
+                      <input type="hidden" name="id" #id="ngModel" [(ngModel)]="postCandidate._id" ngModel>
+                      <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <input type="text" class="form-control" name="name" [(ngModel)]="postCandidate.name"
+                            placeholder="Client Name" #name="ngModel" ngModel required>
+                          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                            <div *ngIf="name.errors.required">
+                              Name is required.
+                            </div>
+                            <div *ngIf="name.errors.minlength">
+                              Name must be at least 4 characters long.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="text" class="form-control" name="email" [(ngModel)]="postCandidate.email "
+                            placeholder="Enter your mail ID" #email="ngModel" ngModel required>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="number" name="mobile" #mobile='ngModel' [(ngModel)]="postCandidate.mobile"
+                            class="form-control" placeholder="Enter your mobile number" ngModel required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="number" name="exp" #exp='ngModel' [(ngModel)]="postCandidate.exp"
+                            class="form-control" placeholder="Enter your experience" ngModel required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="number" name="salary" #salary='ngModel' class="form-control"
+                            placeholder="Enter your expected salary" [(ngModel)]="postCandidate.salary" ngModel
+                            required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="text" name="location" #location='ngModel' class="form-control"
+                            placeholder="Enter your location" [(ngModel)]="postCandidate.salary" ngModel required>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <input type="number" name="position" #position='ngModel' class="form-control"
+                            placeholder="Enter the positions opened" [(ngModel)]="postCandidate.position" ngModel
+                            required>
+                        </div>
+                        <div>
+                          <button class="btn-btn-primary ">OK</button>
+                        </div>
+
+
+
+                      </div>
+
+
+                    </div>
+                  </form>
+                </div>
+                <hr>
+
+                <div class="col" style="font-family: 'Courier New', Courier, monospace;">
+                  <h2 class="rate">Ratings And Reviews</h2>
+                </div>
+                <!-- Button trigger modal -->
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Submit Review
+     
+  </button>
+ 
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Submit Reveiw</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!-- <div class="modal-body">
+            <ngb-rating [(rate)]="currentRate"></ngb-rating>
+<hr>
+<pre>Rate: <b>{{currentRate}}</b></pre>
+        </div> -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- Modal -->
+
+        <td>{{company.name | lowercase}}</td>
+        <td>{{company.email | lowercase}}</td>
+        <td>{{company.mobile}}</td>
+        <td>{{company.exp}}</td>
+        <td>{{company.salary}}</td>
+        <td>{{company.location | lowercase}}</td>
+        <td>{{company.position}}</td>
+
+
+
+        <!-- </button>  -->
+      </tr>
+    </tbody>
+  </table>
+</div>

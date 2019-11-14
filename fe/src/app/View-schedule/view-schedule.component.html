@@ -1,0 +1,146 @@
+
+
+
+<div class="row">
+    <div class="col mt-3 ml-3" style="font-family: 'Courier New', Courier, monospace;">
+      <h2>Create Job opening</h2>
+    </div>
+    <div class="col-md-12-offset-10 mt-3">
+      <!-- Button trigger modal -->
+     
+  
+      <!-- Modal -->
+      <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Add opening</a>
+
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-full" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create jobOpening</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+            </div>
+            <div class="modal-body p-4" id="result">
+                <div class="col-md-8 offset-md-2 mt-5 mb-5 card card-body">
+                    <form action="" method="POST" role="form" #form='ngForm' (ngSubmit)='printopenings(form)'>
+            <div class="example-container ">
+                    <h3 class="text-center text-white bg-dark">Job Opening Information</h3>
+                    <br>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="name" placeholder="Client Name" #name="ngModel"
+                                ngModel required>
+                            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                                <div *ngIf="name.errors.required">
+                                    Name is required.
+                                </div>
+                                <div *ngIf="name.errors.minlength">
+                                    Name must be at least 4 characters long.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" class="form-control" name="title" placeholder="Posting title" #title="ngModel"
+                                ngModel required>
+                            
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" name="contactname" #contactname='ngModel' class="form-control"
+                                placeholder="Contact Name" ngModel required>
+                        </div>
+                        <!-- <div class="form-group col-md-6">
+                            <input type="text" name="targetdate" #targetdate='ngModel' class="form-control" placeholder="Target Date"
+                                ngModel required>
+                        </div> -->
+                        <div class="form-group col-md-6">
+                                <select class="form-control" aria-placeholder="Job Type"  name="jobtype" #jobtype='ngModel'  ngModel required>
+                                    <option value="" selected disabled hidden>Job Type</option>
+                                    <option>None</option>  
+                                    <option>Full Time</option>
+                                    <option>Part Time</option>
+                                    <option>Permanent</option>
+                                    <option>Contract</option>
+                                    <option>Temporary</option>
+                                    <option>Training</option>
+                                 
+                                  </select>                        
+                            </div> 
+                        
+                        <div class="form-group col-md-6">
+                            <input type="text" name="industry" #industry='ngModel' class="form-control"
+                                placeholder="Industry" ngModel required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" name="city" #city='ngModel' class="form-control"
+                                placeholder="City" ngModel required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="text" name="skills" #skills='ngModel' class="form-control" placeholder="Skills" ngModel
+                                required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input type="number" name="salary" #salary='ngModel' class="form-control" placeholder="Salary"
+                                ngModel required>
+                        </div>
+                        <div class="form-group">
+                            
+                                <button type="submit" class="btn btn-secondary" data-dismiss="Modal">submit</button> 
+                        </div>
+                        <div >
+                                <button type="button" class="btn btn-secondary col-md-12 offset-3" data-dismiss="modal">OK</button>                                                       
+
+                        </div>
+                       
+                    </div>
+                
+                  
+              </div>
+            </form>  
+              </div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div class="col-md-3">
+    </div>
+  </div>
+  
+  <hr>
+  <div class="container mt-4">
+  
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr class="text-white text-center">
+            <th>S.NO</th>
+          <th>Posting Title</th>
+          <th>Client Name</th>
+          <th>Contact Name</th>
+          <th>City</th>
+          <th>Job Type</th>
+          <th>Salary</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor='let opening of res,index as i'>
+            <td>{{i+1}}</td>
+          <td>{{opening.title}}</td>
+          <td>{{opening.name }}</td>
+          <td>{{opening.contactname}}</td>
+          <td>{{opening.city}}</td>
+          <td>{{opening.jobtype}}</td>
+          
+          <td>{{opening.salary }}</td>
+          
+          
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn btn-outline-primary float-right" (click)='Schedule()'>Schedule Interview</button>
+  </div>
+
+  
